@@ -1,0 +1,66 @@
+CREATE TABLE waybills (
+    WaybillsID int primary key,
+    WaybillDate date,
+    Organization varchar(255)
+);
+
+CREATE TABLE waybillPosition (
+    WaybillsID int references waybills(WaybillsID),
+    Price int,
+    Nomenclature varchar(255) primary key,
+    Quantity int
+);
+
+CREATE TABLE organizations (
+    Organization varchar(255) ,
+    INN varchar(255),
+    CheckingAccount varchar(255)
+);
+
+CREATE TABLE nomenclatures (
+    Title varchar(255),
+    InternalCode varchar(255),
+    Nomenclature varchar(255) references waybillPosition(Nomenclature)
+);
+insert into waybills (WaybillsID, WaybillDate, Organization) values (1 , '2008-07-07', 'Google');
+insert into waybills (WaybillsID, WaybillDate, Organization) values (2 , '2008-07-07', 'Yandex');
+insert into waybills (WaybillsID, WaybillDate, Organization) values (3 , '2008-07-07', 'Mail');
+insert into waybills (WaybillsID, WaybillDate, Organization) values (5 , '2008-07-07', 'Company3');
+insert into waybills (WaybillsID, WaybillDate, Organization) values (5 , '2008-07-07', 'Company3');
+insert into waybills (WaybillsID, WaybillDate, Organization) values (6 , '2008-07-07', 'Company3');
+insert into waybills (WaybillsID, WaybillDate, Organization) values (7 , '2008-07-07', 'Company3');
+insert into waybills (WaybillsID, WaybillDate, Organization) values (8 , '2008-07-07', 'Company3');
+insert into waybills (WaybillsID, WaybillDate, Organization) values (9 , '2008-07-07', 'Company3');
+insert into waybills (WaybillsID, WaybillDate, Organization) values (10 , '2008-07-07', 'Company3');
+insert into waybills (WaybillsID, WaybillDate, Organization) values (11 , '2008-07-07', 'Company3');
+insert into organizations (Organization, INN, CheckingAccount) values ('Google', 2352452435 , 28867955);
+insert into organizations (Organization, INN, CheckingAccount) values ('Yandex', 23534534435 , 2462472222);
+insert into organizations (Organization, INN, CheckingAccount) values ('Mail', 346346346 , 574534622);
+insert into organizations (Organization, INN, CheckingAccount) values ('Company3', 235267452435 , 57457472222);
+insert into waybillPosition (WaybillsID, Price, Nomenclature,Quantity) values (1, 3000 , 'Nomenclature1', 330);
+insert into waybillPosition (WaybillsID, Price, Nomenclature,Quantity) values (2, 2000 , 'Nomenclature2', 330);
+insert into waybillPosition (WaybillsID, Price, Nomenclature,Quantity) values (3, 5000 , 'Nomenclature3', 3666);
+insert into waybillPosition (WaybillsID, Price, Nomenclature,Quantity) values (3, 5000 , 'Nomenclature4', 1236);
+insert into nomenclatures (Title,InternalCode, Nomenclature) values ('product1','3463qw', 'Nomenclature1')
+insert into nomenclatures (Title,InternalCode, Nomenclature) values ('product2','45g45', 'Nomenclature2')
+insert into nomenclatures (Title,InternalCode, Nomenclature) values ('product3','4545uttt', 'Nomenclature3')
+insert into nomenclatures (Title,InternalCode, Nomenclature) values ('product3','33453tt', 'Nomenclature11')
+insert into nomenclatures (Title,InternalCode, Nomenclature) values ('product2','5t555gtg5', 'Nomenclature3')
+insert into nomenclatures (Title,InternalCode, Nomenclature) values (null,'3463qw', 'Nomenclature3')
+
+
+select Organization, sum(Quantity) as QuantitySum  from waybills inner join  waybillPosition on waybills.WaybillsID = waybillPosition.WaybillsID  where Quantity >1000 GROUP BY waybills.Organization, waybillPosition.Quantity where Quantity = 277777777000
+
+select Organization, Quantity from waybills inner join  waybillPosition on waybills.WaybillsID = waybillPosition.WaybillsID ORDER BY Quantity DESC LIMIT 10
+
+SELECT AVG(Price_unit) AS PriceAvg FROM Price;
+
+select Organization, avg(Price) as avgPrice  from waybills inner join  waybillPosition on waybills.WaybillsID = waybillPosition.WaybillsID WHERE WaybillDate BETWEEN '2006-07-07' AND '2010-07-07' GROUP BY waybills.Organization, waybillPosition.Price
+
+
+
+select  Organization,Title from waybills    join  waybillPosition on waybills.WaybillsID  = waybillPosition.WaybillsID    join nomenclatures on waybillPosition.Nomenclature = nomenclatures.Nomenclature WHERE WaybillDate BETWEEN '2006-07-07' AND '2010-07-07' GROUP BY nomenclatures.Title, waybills.Organization
+
+
+
+SELECT Sum(Price) as SumPrice,Sum(Quantity) as SumQuantity  from waybills  join  waybillPosition on waybills.WaybillsID  = waybillPosition.WaybillsID   WHERE WaybillDate between '2007-07-07' and '2010-07-07'
