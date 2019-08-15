@@ -11,7 +11,7 @@ public final class ThirdTask_3_1 {
         try {
             Statement stmt = null;
             stmt = JDBC.con.createStatement();
-            String sql = "select Organization, Quantity from waybills inner join  waybillPosition on waybills.WaybillsID = waybillPosition.WaybillsID ORDER BY Quantity DESC LIMIT 10";
+            String sql = "select Organization, Quantity from waybills inner join  waybillPosition on waybills.WaybillsID = waybillPosition.WaybillsID ORDER BY Quantity DESC LIMIT 5";
             ResultSet rs =stmt.executeQuery(sql);
             while(rs.next()) {
                 String organization = rs.getString( "Organization" );

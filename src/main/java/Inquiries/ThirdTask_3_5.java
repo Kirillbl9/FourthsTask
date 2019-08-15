@@ -15,8 +15,8 @@ public final class ThirdTask_3_5 {
             ResultSet rs =stmt.executeQuery(sql);
             while(rs.next()) {
                 String organization = rs.getString( "Organization" );
-                int avgPrice = rs.getInt( "avgPrice" );
-                System.out.println(organization+"  "+ avgPrice);
+                String title = rs.getString( "Title" );
+                System.out.println(organization+"  "+ title);
             }
         } catch (SQLException err) {
             System.out.println(err.getMessage());
